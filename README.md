@@ -4,7 +4,7 @@
 </p>
 
 <p align="center">
-  <a href="https://www.linkedin.com/in/YOUR-PROFILE"><img src="./btn-linkedin.svg" height="44" alt="LinkedIn" /></a>
+  <a href="https://www.linkedin.com/in/aslamrekik"><img src="./btn-linkedin.svg" height="44" alt="LinkedIn" /></a>
   <a href="mailto:YOUR-EMAIL"><img src="./btn-email.svg" height="44" alt="Email" /></a>
   <a href="LINK-TO-CV"><img src="./btn-cv.svg" height="44" alt="CV" /></a>
 </p>
