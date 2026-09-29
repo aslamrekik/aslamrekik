@@ -13,8 +13,11 @@ build never breaks. Standard library only: no pip install needed.
 import base64, datetime as dt, json, math, os, textwrap, urllib.request
 from xml.sax.saxutils import escape
 
-ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-OUT = os.path.join(ROOT, "profile")
+# Works with a flat repo (all files in the root) or with scripts/ + profile/ folders
+HERE = os.path.dirname(os.path.abspath(__file__))
+ROOT = os.path.dirname(HERE) if os.path.basename(HERE) == "scripts" else HERE
+OUT = os.path.join(ROOT, "profile") if os.path.isdir(os.path.join(ROOT, "profile")) else ROOT
+ICONS = os.path.join(HERE, "icons.json")
 USER = os.environ.get("GH_USER", "aslamrekik")
 TOKEN = os.environ.get("GH_TOKEN", "")
 
@@ -440,7 +443,7 @@ DEFS = f"""
 def dashboard(d):
     with open(os.path.join(OUT, "avatar-src.jpg"), "rb") as f:
         av = base64.b64encode(f.read()).decode()
-    with open(os.path.join(ROOT, "scripts", "icons.json")) as f:
+    with open(ICONS) as f:
         icons = json.load(f)
     parts, y = [], 0
     s, h = header(); parts.append(s); y += h
@@ -466,7 +469,6 @@ def button(label):
 
 
 def main():
-    os.makedirs(OUT, exist_ok=True)
     d = fetch()
     with open(os.path.join(OUT, "dashboard.svg"), "w", encoding="utf-8") as f:
         f.write(dashboard(d))
