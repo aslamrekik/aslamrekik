@@ -7,8 +7,9 @@ on:
   push:
     branches: [main]
     paths:
-      - "scripts/**"
-      - "profile/avatar-src.jpg"
+      - "build_profile.py"
+      - "icons.json"
+      - "avatar-src.jpg"
       - ".github/workflows/profile.yml"
 
 permissions:
@@ -24,12 +25,12 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GH_PAT || secrets.GITHUB_TOKEN }}
           GH_USER: ${{ github.repository_owner }}
-        run: python3 scripts/build_profile.py
+        run: python3 build_profile.py
 
       - name: Commit
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@users.noreply.github.com"
-          git add profile/*.svg
+          git add dashboard.svg btn-*.svg
           git commit -m "Update profile dashboard" || exit 0
           git push
